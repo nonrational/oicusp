@@ -6,6 +6,11 @@ set :database, { adapter: "sqlite3", database: "oicusp.sqlite3" }
 
 class Request < ActiveRecord::Base; end
 
+get '/log' do
+  @requests = Request.all
+  erb :log
+end
+
 get '*' do
   path = params['splat'][0]
 

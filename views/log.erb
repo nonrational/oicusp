@@ -1,0 +1,30 @@
+<html>
+<head>
+  <style>
+    * {
+      font-family: monospace;
+    }
+    table {
+      max-width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <table>
+  <tr>
+    <th>method</th>
+    <th>params</th>
+    <th>response</th>
+  </tr>
+  <% @requests.each do |r| %>
+    <tr>
+      <td><%= r.method %></td>
+      <td><%= r.params %></td>
+      <td><%= r.response %></td>
+    </tr>
+  <% end %>
+  </table>
+</body>
+</html>
