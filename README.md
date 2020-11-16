@@ -1,5 +1,5 @@
 # oicusp
-capture, log, and drop blackhole traffic to ocsp.apple.com
+capture, log, and drop traffic to ocsp.apple.com
 
 
 ## Wat?
