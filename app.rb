@@ -1,16 +1,29 @@
 require "sinatra"
 require "sinatra/activerecord"
+require "httparty"
 
 set :database, { adapter: "sqlite3", database: "oicusp.sqlite3" }
 
-class Request < ActiveRecord::Base
-  validates :raw, presence: true
-end
+class Request < ActiveRecord::Base; end
 
 get '*' do
-  Request.create!(method: :get, raw: params)
+  path = params['splat'][0]
+
+  req_headers = headers.except("Host").merge({"Host" => "ocsp.apple.com"})
+
+  response = HTTParty.get(
+    "http://17.253.97.205#{path}",
+    query: params.except('splat', 'captures'),
+    headers: req_headers
+  )
+
+  Request.create!(method: :get, params: params, response: response)
+
+  status response.code
+  response.body
 end
 
 post '*' do
-  Request.create!(method: :post, raw: params)
+  Request.create!(method: :post, params: params)
+  # HTTParty.get(path, query: params.except('splat', 'captures'))
 end

@@ -14,7 +14,10 @@ ActiveRecord::Schema.define(version: 2020_11_16_155045) do
 
   create_table "requests", force: :cascade do |t|
     t.string "method"
-    t.binary "raw"
+    t.binary "params"
+    t.binary "response"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
