@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>oicusp/log</title>
   <style>
     * {
       font-family: monospace;
@@ -8,6 +9,9 @@
       max-width: 90%;
       margin: auto;
       padding: 0;
+    }
+    td {
+      vertical-align: top;
     }
   </style>
 </head>
@@ -22,7 +26,11 @@
     <tr>
       <td><%= r.method %></td>
       <td><%= r.params %></td>
-      <td><%= r.response %></td>
+      <td>
+        <% r.response_as_hex.scan(/../).each_with_index do |part, idx| %>
+          <%= part %><%= idx + 1 % 10 == 0 ? '<br/>' : '&nbsp;' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </table>

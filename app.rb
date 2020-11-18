@@ -4,10 +4,16 @@ require "httparty"
 
 set :database, { adapter: "sqlite3", database: "oicusp.sqlite3" }
 
-class Request < ActiveRecord::Base; end
+class Request < ActiveRecord::Base
+  def response_as_hex
+    response.each_byte.map { |b| b.to_s(16) }.join
+  end
+end
 
 get '/log' do
   @requests = Request.all
+
+  status :ok
   erb :log
 end
 
